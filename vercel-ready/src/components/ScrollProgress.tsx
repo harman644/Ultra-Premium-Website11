@@ -1,0 +1,20 @@
+import { useEffect, useState } from "react";
+
+export default function ScrollProgress() {
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / total) * 100;
+      setWidth(progress);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <div className="scroll-progress" style={{ width: `${width}%` }} />
+  );
+}

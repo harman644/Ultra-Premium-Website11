@@ -1,0 +1,27 @@
+{
+  "name": "preetsmobilecarwash",
+  "version": "1.0.0",
+  "description": "Preets Mobile Car Wash - Premium Mobile Car Detailing Website",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.3",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tw-animate-css": "^1.2.5",
+    "typescript": "~5.7.2",
+    "vite": "^7.0.0"
+  }
+}
