@@ -138,7 +138,6 @@ export default function Booking() {
                 <input
                   type="date"
                   name="name"
-                  min={getTomorrow()}
                   className="luxury-input"
                   style={{ colorScheme: "dark" }}
                 />
