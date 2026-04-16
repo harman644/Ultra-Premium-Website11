@@ -1,6 +1,4 @@
 import { useState } from "react";
-import emailjs from "emailjs-com";
-
 const initialForm = {
   name: "",
   phone: "",
@@ -31,39 +29,6 @@ export default function Booking() {
     if (!form.address.trim()) newErrors.address = "Address is required";
     return newErrors;
   };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const newErrors = validate();
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      const firstErrorField = Object.keys(newErrors)[0];
-      const el = document.querySelector(`[name="${firstErrorField}"]`);
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
-      return;
-    }
-    setErrors({});
-    setSubmitting(true);
-
-    try {
-  await emailjs.send(
-    "service_wycnx3q",
-    "template_dperr56",
-    {
-      user_name: form.name,
-      phone: form.phone,
-      user_email: form.email,
-      car_type: form.carType,
-      service: form.service,
-      date: form.date,
-    },
-    "ce7JgkzChoUOzKKeJ"
-  );
-
-  alert("Sent ✅");
-
-} catch (error) {
-  alert("Error ❌");
 }
 
 
@@ -154,20 +119,18 @@ export default function Booking() {
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="reveal glass p-8 lg:p-12" style={{ borderRadius: "4px" }}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {/* Name */}
+          <form action="https://api.web3forms.com/submit" method="POST">
+          {/* Add your Access Key right here inside the form */}
+          <input type="hidden" name="access_key" value="d87d4504-986e-469c-85b7-9e558835f701" />
+
               <div>
                 <label className="block text-white/60 text-xs tracking-[0.2em] uppercase mb-2">Full Name *</label>
                 <input
                   type="text"
                   name="name"
-                  value={form.name}
-                  onChange={handleChange}
                   placeholder="Your name"
                   className="luxury-input"
                 />
-                {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
               </div>
 
               {/* Phone */}
@@ -176,12 +139,9 @@ export default function Booking() {
                 <input
                   type="tel"
                   name="phone"
-                  value={form.phone}
-                  onChange={handleChange}
                   placeholder="04xx xxx xxx"
                   className="luxury-input"
                 />
-                {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
               </div>
 
               {/* Email */}
@@ -190,12 +150,9 @@ export default function Booking() {
                 <input
                   type="email"
                   name="email"
-                  value={form.email}
-                  onChange={handleChange}
                   placeholder="your@email.com"
                   className="luxury-input"
                 />
-                {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
               </div>
 
               {/* Car Type */}
@@ -203,8 +160,6 @@ export default function Booking() {
                 <label className="block text-white/60 text-xs tracking-[0.2em] uppercase mb-2">Car Type *</label>
                 <select
                   name="carType"
-                  value={form.carType}
-                  onChange={handleChange}
                   className="luxury-input"
                   style={{ appearance: "none" }}
                 >
@@ -215,7 +170,7 @@ export default function Booking() {
                   <option value="Ute">Ute / Van</option>
                   <option value="Other">Other</option>
                 </select>
-                {errors.carType && <p className="text-red-400 text-xs mt-1">{errors.carType}</p>}
+                }
               </div>
 
               {/* Service */}
@@ -223,8 +178,6 @@ export default function Booking() {
                 <label className="block text-white/60 text-xs tracking-[0.2em] uppercase mb-2">Service *</label>
                 <select
                   name="service"
-                  value={form.service}
-                  onChange={handleChange}
                   className="luxury-input"
                   style={{ appearance: "none" }}
                 >
@@ -237,7 +190,6 @@ export default function Booking() {
                   <option value="Detail Polish & Buffing">Detail Polish & Buffing (Call for Details)</option>
                   <option value="Pickup & Drop">Pickup & Drop</option>
                 </select>
-                {errors.service && <p className="text-red-400 text-xs mt-1">{errors.service}</p>}
               </div>
 
               {/* Date */}
@@ -245,14 +197,11 @@ export default function Booking() {
                 <label className="block text-white/60 text-xs tracking-[0.2em] uppercase mb-2">Preferred Date *</label>
                 <input
                   type="date"
-                  name="date"
-                  value={form.date}
+                  name="name"
                   min={getTomorrow()}
-                  onChange={handleChange}
                   className="luxury-input"
                   style={{ colorScheme: "dark" }}
                 />
-                {errors.date && <p className="text-red-400 text-xs mt-1">{errors.date}</p>}
               </div>
 
               {/* Time */}
@@ -260,8 +209,6 @@ export default function Booking() {
                 <label className="block text-white/60 text-xs tracking-[0.2em] uppercase mb-2">Preferred Time *</label>
                 <select
                   name="time"
-                  value={form.time}
-                  onChange={handleChange}
                   className="luxury-input"
                   style={{ appearance: "none" }}
                 >
@@ -277,7 +224,6 @@ export default function Booking() {
                   <option value="3:00 PM">3:00 PM</option>
                   <option value="4:00 PM">4:00 PM</option>
                 </select>
-                {errors.time && <p className="text-red-400 text-xs mt-1">{errors.time}</p>}
               </div>
 
               {/* Address */}
@@ -286,12 +232,9 @@ export default function Booking() {
                 <input
                   type="text"
                   name="address"
-                  value={form.address}
-                  onChange={handleChange}
                   placeholder="Street address, suburb"
                   className="luxury-input"
                 />
-                {errors.address && <p className="text-red-400 text-xs mt-1">{errors.address}</p>}
               </div>
 
               {/* Message */}
@@ -299,8 +242,6 @@ export default function Booking() {
                 <label className="block text-white/60 text-xs tracking-[0.2em] uppercase mb-2">Special Requests (Optional)</label>
                 <textarea
                   name="message"
-                  value={form.message}
-                  onChange={handleChange}
                   placeholder="Any special notes or requirements..."
                   rows={3}
                   className="luxury-input resize-none"
@@ -308,14 +249,7 @@ export default function Booking() {
               </div>
             </div>
 
-            {/* Submit error */}
-            {errors.submit && (
-              <div className="mt-6 px-4 py-3 text-sm text-red-400 border border-red-400/30 rounded" style={{ background: "rgba(220,38,38,0.08)" }}>
-                ⚠ {errors.submit}
-              </div>
-            )}
-
-            {/* Submit */}
+          
             <div className="mt-8 flex flex-col sm:flex-row gap-4 items-center">
               <button
                 type="submit"
