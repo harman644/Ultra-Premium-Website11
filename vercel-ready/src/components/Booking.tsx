@@ -192,11 +192,10 @@ export default function Booking() {
             <div className="mt-8 flex flex-col sm:flex-row gap-4 items-center">
               <button
                 type="submit"
-                disabled={submitting}
                 className="btn-gold w-full sm:w-auto"
-                style={{ borderRadius: "2px", opacity: submitting ? 0.7 : 1 }}
+                style={{ borderRadius: "2px" }}
               >
-                {submitting ? "Sending..." : "Submit Booking Request"}
+                submit booking request
               </button>
               <a
                 href="https://wa.me/61410194829?text=Hi%20Gurpreet%2C%20I'd%20like%20to%20book%20a%20car%20detail"
