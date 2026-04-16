@@ -1,4 +1,5 @@
 import { useState } from "react";
+import emailjs from "emailjs-com";
 
 const initialForm = {
   name: "",
@@ -45,8 +46,27 @@ export default function Booking() {
     setSubmitting(true);
 
     try {
-      const res = await fetch("/api/booking", {
-        method: "POST",
+  await emailjs.send(
+    "service_wycnx3q",
+    "template_dperr56",
+    {
+      user_name: form.name,
+      phone: form.phone,
+      user_email: form.email,
+      car_type: form.carType,
+      service: form.service,
+      date: form.date,
+    },
+    "ce7JgkzChoUOzKKeJ"
+  );
+
+  alert("Sent ✅");
+
+} catch (error) {
+  alert("Error ❌");
+}
+
+
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
