@@ -1,68 +1,8 @@
 import { useState } from "react";
-const initialForm = {
-  name: "",
-  phone: "",
-  email: "",
-  carType: "",
-  service: "",
-  date: "",
-  time: "",
-  address: "",
-  message: "",
-};
 
 export default function Booking() {
-  const [form, setForm] = useState(initialForm);
-  const [submitting, setSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
-  const validate = () => {
-    const newErrors: Record<string, string> = {};
-    if (!form.name.trim()) newErrors.name = "Name is required";
-    if (!form.phone.trim()) newErrors.phone = "Phone is required";
-    if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email)) newErrors.email = "Valid email is required";
-    if (!form.carType) newErrors.carType = "Please select car type";
-    if (!form.service) newErrors.service = "Please select a service";
-    if (!form.date) newErrors.date = "Please select a date";
-    if (!form.time) newErrors.time = "Please select a time";
-    if (!form.address.trim()) newErrors.address = "Address is required";
-    return newErrors;
-  };
-}
-
-
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Failed to send booking.");
-      }
-
-      setSuccess(true);
-      setForm(initialForm);
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Something went wrong.";
-      setErrors({ submit: message });
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
-  };
-
-  const getTomorrow = () => {
-    const d = new Date();
-    d.setDate(d.getDate() + 1);
-    return d.toISOString().split("T")[0];
-  };
-
+  
+      
   return (
     <section id="booking" className="py-24 lg:py-32 relative" style={{ background: "#0d0d0d" }}>
       <div className="gold-divider w-full max-w-xs mb-0 absolute top-0 left-1/2 -translate-x-1/2" />
